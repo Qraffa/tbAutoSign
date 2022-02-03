@@ -1,0 +1,21 @@
+name: 'Sign'
+on: 
+  schedule:
+    - cron: '0 1,13 * * *'
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.16.5' # The Go version to download (if necessary) and use.
+      - name: Sign
+        env:
+          BDUSS: ${{ secrets.BDUSS }}
+        run: go run main.go
+
+
