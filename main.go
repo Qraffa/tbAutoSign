@@ -51,6 +51,9 @@ func main() {
 		fmt.Printf("BDUSS is nil")
 		return
 	}
+	// 去掉换行符
+	bdussList := strings.Split(bduss, "\n")
+	bduss = bdussList[0]
 
 	client := resty.New()
 
