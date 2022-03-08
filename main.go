@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"sort"
@@ -60,12 +61,15 @@ func main() {
 	tbs := getTBS(client, bduss)
 	like := getLike(client, bduss)
 
+	log.Printf("get likes number: %d\n", len(like.Data.LikeForum))
 	// do sign
 	for i := 0; i < len(like.Data.LikeForum); i++ {
 		forum := like.Data.LikeForum[i]
 		if forum.IsSign == 0 {
-			fmt.Printf("do sign. ForumName: %s ...\n", forum.ForumName)
+			log.Printf("do sign. ForumName: %s ...\n", forum.ForumName)
 			doSign(client, bduss, tbs, forum.ForumName, forum.ForumID)
+		} else {
+			log.Printf("pass.    ForumName: %s ...\n", forum.ForumName)
 		}
 	}
 }
